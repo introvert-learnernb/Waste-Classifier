@@ -8,9 +8,9 @@ last_prediction_time = 0
 last_group_sent = None
 COOLDOWN = 3  # seconds
 
-
 def run_arduino_inference(model, image, fallback_predict_func=None, threshold=0.5):
     global last_prediction_time, last_group_sent
+
     results = model.predict(image, imgsz=640)
     all_boxes = []
     for r in results:
@@ -21,16 +21,15 @@ def run_arduino_inference(model, image, fallback_predict_func=None, threshold=0.
     )
 
     if final_group == "Unknown" and fallback_predict_func:
-        final_group = fallback_predict_func(image)
-        final_confidence = None  # No confidence from fallback
+        final_group, confidence = fallback_predict_func(image)
+        final_confidence = confidence
     else:
         final_confidence = group_conf.get(final_group, None)
 
     now = time.time()
-    if final_group != "Unknown" and final_group != last_group_sent:
-        if now - last_prediction_time > COOLDOWN:
-            send_to_arduino(final_group)
-            last_prediction_time = now
-            last_group_sent = final_group
+    if final_group != "Unknown" and (now - last_prediction_time > COOLDOWN):
+        send_to_arduino(final_group)
+        last_prediction_time = now
+        last_group_sent = final_group
 
     return final_group, final_confidence, all_boxes

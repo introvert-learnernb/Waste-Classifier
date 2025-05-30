@@ -4,9 +4,13 @@ from app.utils.constants import DEVICE
 from app.utils.transforms import test_transform
 
 
+import torch.nn.functional as F
+from PIL import Image
+
+
 def densenet_inference(model, image_input):
     """
-    Returns 'O' or 'R' from DenseNet prediction.
+    Returns 'O' or 'R' from DenseNet prediction, along with the confidence score.
     """
     if isinstance(image_input, str):
         image = Image.open(image_input).convert("RGB")
@@ -19,8 +23,10 @@ def densenet_inference(model, image_input):
     model.eval()
     with torch.no_grad():
         output = model(img_tensor)
-        pred_class_idx = torch.argmax(output, dim=1).item()
+        probabilities = F.softmax(output, dim=1)  # Convert to probabilities
+        pred_class_idx = torch.argmax(probabilities, dim=1).item()
+        confidence = probabilities[0, pred_class_idx].item()
         pred_class = densenet_class_names[pred_class_idx]
 
-    print(f"[DenseNet] Prediction: {pred_class}")
-    return pred_class
+    print(f"[DenseNet] Prediction: {pred_class} (Confidence: {confidence:.2f})")
+    return pred_class, confidence

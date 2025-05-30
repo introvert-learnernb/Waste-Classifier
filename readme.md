@@ -41,7 +41,7 @@ This FastAPI application identifies waste using **YOLOv8s** (object detection) a
   - **Response:**
     ```json
     200 OK
-    { "prediction": "O", 'confidence': 0.9030410945415497 }
+    { "prediction": "O", "confidence": 0.9030410945415497 }
     ```
 
     Where `'O'` = Organic and `'R'` = Recyclable
