@@ -125,10 +125,10 @@ venv.bak/
 Thumbs.db
 
 # models
-*.pth
-*.pt
-*.pkl
-*.onnx
+# *.pth
+# *.pt
+# *.pkl
+# *.onnx
 
 # test dataset
 test/
