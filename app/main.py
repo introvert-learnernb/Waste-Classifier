@@ -10,4 +10,4 @@ def greetUser():
     return {"message": "Hello From Smart Dustbin."}
 
 
-app.include_router(upload_router, prefix=f"{BASE_PREFIX}/upload", tags=["Uploads"])
+app.include_router(upload_router, prefix=f"/upload", tags=["Uploads"])
