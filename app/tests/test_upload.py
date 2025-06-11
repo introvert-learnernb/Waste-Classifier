@@ -19,8 +19,8 @@ def test_image_upload(use_rgb565=False):
         print("No images found.")
         return
 
-    # path = image_paths[0]
-    path = TEST_IMAGE_DIR + "/56.png"
+    path = image_paths[0]
+    # path = TEST_IMAGE_DIR + "/56.png"
     print(f"Using image: {path}")
 
     image = Image.open(path).convert("RGB")

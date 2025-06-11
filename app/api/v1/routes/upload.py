@@ -12,7 +12,7 @@ from app.services.arduino_helpers import (
 )
 
 # Load models
-yolo_model, densenet_model = get_models()
+yolo_model, densenet_model, best_model = get_models()
 
 
 router = APIRouter()
@@ -33,7 +33,7 @@ async def upload(request: Request, file: UploadFile = File(None)):
 
         # Run YOLO + fallback DenseNet inference
         prediction = run_arduino_inference(
-            yolo_model,
+            best_model,
             image,
             fallback_predict_func=lambda img: densenet_inference(densenet_model, img),
         )
