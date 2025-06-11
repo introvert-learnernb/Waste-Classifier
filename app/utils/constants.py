@@ -32,11 +32,9 @@ CLASS_NAMES = [
 ORGANIC_CLASSES = [
     "Carton",
     "Cigarette",
-    "Cup",
     "Lid",
     "Other litter",
     "Paper",
-    "Straw",
     "Unlabeled litter",
 ]
 
@@ -44,9 +42,11 @@ RECYCLABLE_CLASSES = [
     "Aluminium foil",
     "Bottle cap",
     "Bottle",
+    "Cup",
     "Broken glass",
     "Can",
     "Other plastic",
+    "Straw",
     "Plastic bag - wrapper",
     "Plastic container",
     "Pop tab",
@@ -69,6 +69,6 @@ TEST_IMAGE_DIR = "app/data/test_images"
 
 DEBUG = True
 SAVE_COUNT = 0
-MAX_SAVE = 10
+MAX_SAVE = 1
 
 BASE_PREFIX = "/api/v1"

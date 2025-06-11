@@ -10,7 +10,7 @@ load_dotenv()
 
 host = os.getenv("FASTAPI_HOST", "127.0.0.1")
 port = os.getenv("FASTAPI_PORT", "8000")
-API_URL = f"http://{host}:{port}/api/v1/upload"
+API_URL = f"http://{host}:{port}/upload"
 
 
 def test_image_upload(use_rgb565=False):
@@ -19,7 +19,8 @@ def test_image_upload(use_rgb565=False):
         print("No images found.")
         return
 
-    path = image_paths[0]
+    # path = image_paths[0]
+    path = TEST_IMAGE_DIR + "/56.png"
     print(f"Using image: {path}")
 
     image = Image.open(path).convert("RGB")

@@ -18,7 +18,7 @@ yolo_model, densenet_model = get_models()
 router = APIRouter()
 
 
-@router.post("/")
+@router.post("")
 async def upload(request: Request, file: UploadFile = File(None)):
     try:
         if file:
