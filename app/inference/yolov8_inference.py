@@ -55,7 +55,7 @@ def run_yolo_webcam(
     model, fallback_predict_func=None, threshold=0.5, cam_index=0, cooldown=3
 ):
     """
-    Run YOLO on webcam with fallback classifier. Send prediction signal only after cooldown.
+    Run YOLO on webcam with fallback classifier.
     """
     cap = cv2.VideoCapture(cam_index, cv2.CAP_DSHOW)
     if not cap.isOpened():

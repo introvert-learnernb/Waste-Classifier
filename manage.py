@@ -2,9 +2,22 @@ import subprocess
 import sys
 import os
 from dotenv import load_dotenv
+from app.services.model_loader import get_models
+from app.inference.yolov8_inference import run_yolo_webcam
+from app.inference.densenet201_inference import densenet_inference
 
 # Load variables from .env file
 load_dotenv()
+
+# Load models
+_, densenet_model, best_model = get_models()
+
+
+def runwebcam():
+    run_yolo_webcam(
+        best_model,
+        fallback_predict_func=lambda img: densenet_inference(densenet_model, img),
+    )
 
 
 def runserver():
@@ -43,6 +56,8 @@ def main():
 
     if command == "runserver":
         runserver()
+    if command == "runwebcam":
+        runwebcam()
     else:
         print(f"Unknown command: {command}")
         print("Usage: python manage.py runserver")
